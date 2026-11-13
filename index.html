@@ -1,1 +1,318 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOC UFINET - Fechamento</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f4f8;
+  color: #243247;
+}
+
+header {
+  background: #12365a;
+  color: white;
+  padding: 25px;
+  text-align: center;
+}
+
+header h1 { margin: 0; }
+header p { margin-bottom: 0; color: #c8d9e9; }
+
+.container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 15px;
+}
+
+.card {
+  background: white;
+  padding: 22px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px #00000012;
+  margin-bottom: 22px;
+}
+
+h2 { margin-top: 0; color: #12365a; }
+
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccd5df;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+textarea { min-height: 75px; }
+
+.full { grid-column: 1 / -1; }
+
+button {
+  border: none;
+  padding: 12px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  background: #1674c4;
+}
+
+button:hover { opacity: .85; }
+
+.exportar { background: #16834b; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.stat {
+  background: white;
+  padding: 20px;
+  border-radius: 9px;
+  text-align: center;
+}
+
+.stat strong {
+  display: block;
+  font-size: 28px;
+  color: #1674c4;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 750px;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e7ed;
+  text-align: left;
+  font-size: 13px;
+}
+
+th { background: #eaf0f6; }
+
+.tabela { overflow-x: auto; }
+
+.status {
+  padding: 5px 9px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.fechado { background: #d8f5e3; color: #16723a; }
+.aberto { background: #ffe6d5; color: #b45b15; }
+.andamento { background: #dcecff; color: #1765a7; }
+
+.excluir { background: #c63c3c; padding: 7px 10px; }
+
+@media(max-width: 650px) {
+  form { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; }
+  .full { grid-column: auto; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1> NOC UFINET </h1>
+  <p>Painel de Controle | Tabela de Fechamento</p>
+</header>
+
+<div class="container">
+
+<div class="stats">
+  <div class="stat">
+    Total de registros
+    <strong id="total">0</strong>
+  </div>
+  <div class="stat">
+    Em andamento
+    <strong id="andamento">0</strong>
+  </div>
+  <div class="stat">
+    Fechados
+    <strong id="fechados">0</strong>
+  </div>
+</div>
+
+<div class="card">
+<h2>Novo registro</h2>
+
+<form id="formulario">
+
+<input id="ticket" placeholder="Número do chamado (EVE)" required>
+
+<input id="data" type="datetime-local" required>
+
+<input id="trecho" placeholder="Trecho / Circuito" required>
+
+<input id="responsavel" placeholder="Responsável" required>
+
+<select id="status">
+  <option value="Aberto">Aberto</option>
+  <option value="Em andamento">Em andamento</option>
+  <option value="Fechado">Fechado</option>
+</select>
+
+<textarea id="descricao" class="full"
+placeholder="Descrição da ocorrência / atividade" required></textarea>
+
+<button type="submit" class="full">Registrar fechamento</button>
+
+</form>
+</div>
+
+<div class="card">
+<h2>Registros do NOC</h2>
+
+<input id="pesquisa" placeholder="Pesquisar chamado, trecho ou responsável...">
+
+<br><br>
+
+<button class="exportar" onclick="exportarCSV()">
+Exportar para Excel (CSV)
+</button>
+
+<br><br>
+
+<div class="tabela">
+<table>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Data</th>
+<th>Trecho</th>
+<th>Responsável</th>
+<th>Status</th>
+<th>Descrição</th>
+<th>Ação</th>
+</tr>
+</thead>
+
+<tbody id="registros"></tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<script>
+let dados = JSON.parse(localStorage.getItem("nocRegistros") || "[]");
+
+const formulario = document.getElementById("formulario");
+
+function salvar() {
+  localStorage.setItem("nocRegistros", JSON.stringify(dados));
+}
+
+function atualizar() {
+  const busca = document.getElementById("pesquisa").value.toLowerCase();
+
+  const filtrados = dados.filter(item =>
+    Object.values(item).join(" ").toLowerCase().includes(busca)
+  );
+
+  document.getElementById("registros").innerHTML = filtrados.map(item => `
+    <tr>
+      <td>${escapar(item.ticket)}</td>
+      <td>${escapar(item.data)}</td>
+      <td>${escapar(item.trecho)}</td>
+      <td>${escapar(item.responsavel)}</td>
+      <td><span class="status ${
+        item.status === "Fechado" ? "fechado" :
+        item.status === "Aberto" ? "aberto" : "andamento"
+      }">${escapar(item.status)}</span></td>
+      <td>${escapar(item.descricao)}</td>
+      <td><button class="excluir" onclick="remover('${item.id}')">Excluir</button></td>
+    </tr>
+  `).join("");
+
+  document.getElementById("total").textContent = dados.length;
+  document.getElementById("andamento").textContent =
+    dados.filter(x => x.status === "Em andamento").length;
+  document.getElementById("fechados").textContent =
+    dados.filter(x => x.status === "Fechado").length;
+}
+
+function escapar(valor) {
+  return String(valor).replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;",
+    '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+
+formulario.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  dados.push({
+    id: String(Date.now()) + Math.random().toString(36).slice(2),
+    ticket: document.getElementById("ticket").value,
+    data: document.getElementById("data").value,
+    trecho: document.getElementById("trecho").value,
+    responsavel: document.getElementById("responsavel").value,
+    status: document.getElementById("status").value,
+    descricao: document.getElementById("descricao").value
+  });
+
+  salvar();
+  atualizar();
+  formulario.reset();
+
+  alert("Registro realizado com sucesso!");
+});
+
+function remover(id) {
+  if (!confirm("Deseja excluir este registro?")) return;
+
+  dados = dados.filter(item => item.id !== id);
+  salvar();
+  atualizar();
+}
+
+document.getElementById("pesquisa").addEventListener("input", atualizar);
+
+function exportarCSV() {
+  const cabecalho = ["Ticket", "Data", "Trecho", "Responsável", "Status", "Descrição"];
+
+  const linhas = dados.map(x =>
+    [x.ticket, x.data, x.trecho, x.responsavel, x.status, x.descricao]
+  );
+
+  const csv = [cabecalho, ...linhas].map(linha =>
+    linha.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(";")
+  ).join("\r\n");
+
+  const blob = new Blob(["\uFEFF" + csv], {type: "text/csv;charset=utf-8;"});
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "fechamento_noc_ufinet.csv";
+  link.click();
+  URL.revokeObjectURL(link.href);
+}
+
+atualizar();
+</script>
+
+</body>
+</html>
+
