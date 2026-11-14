@@ -1,15 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cuadro de Cierre | NOC Operations Hub</title>
+  <!-- Tailwind CSS CDN with dark mode configured via class -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -41,35 +41,19 @@
       }
     }
   </script>
-
   <style>
     @keyframes slideUpFade {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     .animate-card-in {
       animation: slideUpFade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #334155;
-      border-radius: 9999px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #475569;
-    }
-
+    /* Sleek custom scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
     .dark input[type="datetime-local"]::-webkit-calendar-picker-indicator {
       filter: invert(1);
       opacity: 0.7;
@@ -77,37 +61,31 @@
     }
   </style>
 </head>
-
 <body class="bg-slate-100 dark:bg-[#0b0f19] text-slate-800 dark:text-slate-100 antialiased min-h-screen selection:bg-brand-500 selection:text-white transition-colors duration-200 pb-16">
 
   <!-- Top Navigation Header -->
   <nav class="sticky top-0 z-40 bg-white/90 dark:bg-[#111827]/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
-
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-
+      
       <!-- Brand & Title -->
       <div class="flex items-center gap-3">
         <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-brand-700 via-brand-600 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-brand-600/25 shrink-0">
-
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
           </svg>
         </div>
-
         <div>
           <div class="flex items-center gap-2">
             <h1 class="font-bold text-base sm:text-lg text-slate-900 dark:text-white tracking-tight leading-none" data-i18n="appTitle">Cuadro de Cierre</h1>
-
             <span class="text-[10px] font-bold bg-brand-100 dark:bg-brand-950/80 text-brand-700 dark:text-brand-400 border border-brand-200 dark:border-brand-800/60 px-2 py-0.5 rounded-full uppercase tracking-wider">NOC Hub</span>
           </div>
-
           <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="appSubtitle">Cálculo e Normalização de Chamados</p>
         </div>
       </div>
 
-      <!-- Action Controls -->
+      <!-- Action Controls: Language, Theme Toggle, Reset -->
       <div class="flex items-center gap-2 sm:gap-3">
-
+        
         <!-- Language Switcher -->
         <div class="relative">
           <select id="langSelect" onchange="changeLanguage(this.value)" class="appearance-none bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 text-xs font-semibold pl-2.5 pr-7 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 cursor-pointer transition">
@@ -115,21 +93,18 @@
             <option value="es">🇪🇸 Español</option>
             <option value="en">🇺🇸 English</option>
           </select>
-
           <div class="pointer-events-none absolute right-2 top-2.5 text-slate-400">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </div>
         </div>
 
         <!-- Dark/Light Mode Toggle Button -->
         <button type="button" id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-amber-400 border border-slate-300 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700/80 transition focus:outline-none focus:ring-2 focus:ring-brand-500/30" title="Alternar Tema (Dark/Light)">
-
+          <!-- Moon Icon (shown in light mode) -->
           <svg id="iconMoon" class="w-4 h-4 hidden dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
           </svg>
-
+          <!-- Sun Icon (shown in dark mode) -->
           <svg id="iconSun" class="w-4 h-4 block dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
           </svg>
@@ -137,66 +112,1195 @@
 
         <!-- Clean Form Button -->
         <button type="button" onclick="confirmReset()" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-rose-600 dark:hover:text-rose-400 bg-slate-100 dark:bg-slate-800/90 hover:bg-rose-50 dark:hover:bg-rose-950/40 px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-rose-300 dark:hover:border-rose-900 transition flex items-center gap-1.5 focus:outline-none">
-
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
-
           <span class="hidden sm:inline" data-i18n="btnReset">Limpar</span>
         </button>
-
       </div>
+
     </div>
   </nav>
 
   <!-- Main Workspace -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 space-y-6">
-
-    <!-- KPI Analytics Cards -->
+    
+    <!-- KPI Analytics Cards (4 Key Metrics) -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-
+      
       <!-- Descartes Cliente -->
       <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition">
-
         <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-medium mb-1">
           <span data-i18n="kpiDescartesTitle">Descartes Cliente</span>
+          <span class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </span>
         </div>
-
         <div class="font-mono text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100" id="statDescartes">00:00:00</div>
         <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-1" data-i18n="kpiDescartesSubtitle">Acionamento − Início</p>
       </div>
 
       <!-- Tempo Total Falha -->
       <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:border-amber-300 dark:hover:border-amber-900/40 transition">
-
         <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-medium mb-1">
           <span data-i18n="kpiTotalFalhaTitle">Tempo Total Falha</span>
+          <span class="p-1.5 rounded-lg bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </span>
         </div>
-
         <div class="font-mono text-xl sm:text-2xl font-bold tracking-tight text-amber-600 dark:text-amber-400" id="statTotalFalha">00:00:00</div>
         <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-1" data-i18n="kpiTotalFalhaSubtitle">Fim − Acionamento</p>
       </div>
 
       <!-- Tempo Morto Total -->
       <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:border-indigo-300 dark:hover:border-indigo-900/40 transition">
-
         <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-medium mb-1">
           <span data-i18n="kpiTempoMortoTitle">Tempo Morto Total</span>
+          <span class="p-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </span>
         </div>
-
         <div class="font-mono text-xl sm:text-2xl font-bold tracking-tight text-indigo-600 dark:text-indigo-400" id="statTempoMorto">00:00:00</div>
         <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-1" id="statTmCountLabel">0 paradas aplicadas</p>
       </div>
 
       <!-- Tempo Imputável à Empresa -->
       <div class="bg-gradient-to-br from-brand-700 to-brand-900 dark:from-brand-900 dark:to-[#072d42] border border-brand-600/40 dark:border-brand-700/50 rounded-2xl p-4 text-white shadow-lg shadow-brand-950/20">
-
         <div class="flex items-center justify-between text-brand-100 text-xs font-medium mb-1">
           <span data-i18n="kpiImputavelTitle">Imputável Empresa</span>
+          <span class="p-1.5 rounded-lg bg-white/10 text-cyan-200">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z"/></svg>
+          </span>
         </div>
-
         <div class="font-mono text-xl sm:text-2xl font-bold tracking-tight text-white" id="statImputavel">00:00:00</div>
         <p class="text-[11px] text-brand-200/90 mt-1" data-i18n="kpiImputavelSubtitle">Total Falha − TM Total</p>
       </div>
 
     </div>
+
+    <!-- Layout Grid: Form (Col 7) and Live Preview (Col 5) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- Input Form -->
+      <form id="cuadroForm" class="lg:col-span-7 space-y-5" onsubmit="event.preventDefault();">
+        
+        <!-- Section 1: Ticket Identification -->
+        <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-sm">
+          <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80">
+            <div class="w-6 h-6 rounded-lg bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-400 border border-brand-200 dark:border-brand-800/60 flex items-center justify-center font-bold text-xs">1</div>
+            <h2 class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider" data-i18n="sec1Title">Identificação dos Tickets</h2>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label for="ticketMaster" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <span data-i18n="labelMaster">Ticket Master</span> <span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <input type="text" id="ticketMaster" maxlength="60" placeholder="Ex: INC-00012345-BR"
+                  class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 placeholder:font-sans bg-slate-50/50 dark:bg-[#0d1321] focus:bg-white dark:focus:bg-[#0d1321] focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition" required>
+                <div class="absolute right-3 top-2.5 text-slate-400 dark:text-slate-500">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Toggle Secondary Ticket -->
+            <div class="bg-slate-50 dark:bg-[#0d1321]/80 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800">
+              <div class="flex items-center justify-between">
+                <div>
+                  <label for="diffTicketToggle" class="text-xs font-semibold text-slate-800 dark:text-slate-200 cursor-pointer select-none" data-i18n="labelDiffToggle">Ticket Secundário Diferente</label>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400" data-i18n="subDiffToggle">Se desativado, espelha o código do Ticket Master.</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="diffTicketToggle" class="sr-only peer" onchange="handleDiffTicketToggle()">
+                  <div class="w-11 h-6 bg-slate-300 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
+                </label>
+              </div>
+
+              <div id="secundarioContainer" class="mt-3 hidden">
+                <input type="text" id="ticketSec" maxlength="60" placeholder="Informe o Ticket Secundário"
+                  class="w-full px-3.5 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 placeholder:font-sans bg-white dark:bg-[#111827] focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Telecom Cause and Solution -->
+        <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-sm">
+          <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80">
+            <div class="w-6 h-6 rounded-lg bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-400 border border-brand-200 dark:border-brand-800/60 flex items-center justify-center font-bold text-xs">2</div>
+            <h2 class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider" data-i18n="sec2Title">Causa e Solução Técnica</h2>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label for="causa" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <span data-i18n="labelCausa">Causa da Ocorrência</span> <span class="text-rose-500">*</span>
+              </label>
+              <select id="causa" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm text-slate-800 dark:text-slate-100 bg-slate-50/50 dark:bg-[#0d1321] focus:bg-white dark:focus:bg-[#0d1321] focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition cursor-pointer" required>
+                <!-- Populated dynamically via i18n -->
+              </select>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label for="solucao" class="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <span data-i18n="labelSolucao">Solução / Fechamento Técnico</span> <span class="text-rose-500">*</span>
+                </label>
+                <span id="charCountBadge" class="text-[11px] font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">0 / 500</span>
+              </div>
+              <textarea id="solucao" maxlength="500" rows="3" placeholder="Descreva os testes executados, equipes acionadas e evidências de normalização..."
+                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 bg-slate-50/50 dark:bg-[#0d1321] focus:bg-white dark:focus:bg-[#0d1321] focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition leading-relaxed" required></textarea>
+              
+              <!-- Character Progress Bar -->
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full mt-1.5 overflow-hidden">
+                <div id="charProgressBar" class="h-full bg-brand-500 transition-all duration-150 w-0"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Operational Chronology -->
+        <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-sm">
+          <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80">
+            <div class="w-6 h-6 rounded-lg bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-400 border border-brand-200 dark:border-brand-800/60 flex items-center justify-center font-bold text-xs">3</div>
+            <h2 class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider" data-i18n="sec3Title">Cronologia Operacional</h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Data Inicio -->
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label for="dtInicio" class="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <span data-i18n="labelDtInicio">Data / Hora Início</span> <span class="text-rose-500">*</span>
+                </label>
+                <button type="button" onclick="setNow('dtInicio')" class="text-[11px] text-brand-600 dark:text-brand-400 hover:text-brand-500 font-medium hover:underline" data-i18n="btnNow">Agora</button>
+              </div>
+              <input type="datetime-local" id="dtInicio" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-xs sm:text-sm text-slate-800 dark:text-slate-100 bg-slate-50/50 dark:bg-[#0d1321] focus:bg-white dark:focus:bg-[#0d1321] focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none font-mono" required>
+            </div>
+
+            <!-- Data Acionamento -->
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label for="dtAcionamento" class="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <span data-i18n="labelDtAcionamento">Data / Hora Acionamento</span> <span class="text-rose-500">*</span>
+                </label>
+                <button type="button" onclick="setNow('dtAcionamento')" class="text-[11px] text-brand-600 dark:text-brand-400 hover:text-brand-500 font-medium hover:underline" data-i18n="btnNow">Agora</button>
+              </div>
+              <input type="datetime-local" id="dtAcionamento" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-xs sm:text-sm text-slate-800 dark:text-slate-100 bg-slate-50/50 dark:bg-[#0d1321] focus:bg-white dark:focus:bg-[#0d1321] focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none font-mono" required>
+            </div>
+
+            <!-- Data Fim -->
+            <div class="md:col-span-2">
+              <div class="flex items-center justify-between mb-1">
+                <label for="dtFim" class="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <span data-i18n="labelDtFim">Data / Hora Fim (Normalização)</span> <span class="text-rose-500">*</span>
+                </label>
+                <button type="button" onclick="setNow('dtFim')" class="text-[11px] text-brand-600 dark:text-brand-400 hover:text-brand-500 font-medium hover:underline" data-i18n="btnNow">Agora</button>
+              </div>
+              <input type="datetime-local" id="dtFim" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-xs sm:text-sm text-slate-800 dark:text-slate-100 bg-slate-50/50 dark:bg-[#0d1321] focus:bg-white dark:focus:bg-[#0d1321] focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none font-mono" required>
+            </div>
+          </div>
+
+          <!-- Chronology Error Alert -->
+          <div id="dateAlertBox" class="hidden mt-4 p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 rounded-xl text-rose-700 dark:text-rose-300 text-xs flex items-center gap-2">
+            <svg class="w-4 h-4 shrink-0 text-rose-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+            <span id="dateAlertText">Atenção na cronologia de datas.</span>
+          </div>
+        </div>
+
+        <!-- Section 4: SLA Dead Time / Pausas (Omitted from table if empty) -->
+        <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80">
+            <div class="flex items-center gap-2">
+              <div class="w-6 h-6 rounded-lg bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60 flex items-center justify-center font-bold text-xs">4</div>
+              <div>
+                <h2 class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider leading-none" data-i18n="sec4Title">Pausas SLA (Tempo Morto)</h2>
+                <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-1" data-i18n="sec4Subtitle">Se não houver paradas, todas as linhas serão omitidas da tabela final.</p>
+              </div>
+            </div>
+            <button type="button" onclick="addTempoMortoBlock()" id="btnAddTm"
+              class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 border border-indigo-200 dark:border-indigo-800/60 transition flex items-center gap-1 focus:outline-none">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span data-i18n="btnAddTm">Adicionar Parada</span>
+            </button>
+          </div>
+
+          <!-- Empty State Container -->
+          <div id="tmEmptyState" class="p-6 text-center border border-dashed border-slate-200 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-[#0d1321]/50">
+            <svg class="w-8 h-8 mx-auto text-slate-300 dark:text-slate-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <p class="text-xs font-medium text-slate-600 dark:text-slate-300" data-i18n="tmEmptyTitle">Nenhum tempo morto registrado</p>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5" data-i18n="tmEmptyDesc">O chamado correu sem interrupções imputáveis a terceiros/cliente.</p>
+          </div>
+
+          <!-- Dynamic TM List -->
+          <div id="tmContainer" class="space-y-3"></div>
+        </div>
+
+      </form>
+
+      <!-- Live Preview & Clipboard Output Area -->
+      <div class="lg:col-span-5 space-y-5 lg:sticky lg:top-20">
+        <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800 mb-4">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white tracking-tight" data-i18n="previewTitle">Pré-visualização da Tabela</h3>
+              <p class="text-xs text-slate-400 dark:text-slate-500" data-i18n="previewSubtitle">Formatada e pronta para o chamado</p>
+            </div>
+            <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/60 px-2.5 py-1 rounded-full">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span data-i18n="previewSync">Sincronizado</span>
+            </span>
+          </div>
+
+          <!-- Action buttons for clipboard -->
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <button type="button" onclick="copyTableAsHTML()" class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 active:scale-[0.98] text-white font-medium text-xs shadow-md shadow-brand-600/25 transition focus:outline-none">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span data-i18n="btnCopyExcel">Copiar Tabela (Excel)</span>
+            </button>
+
+            <button type="button" onclick="copyTableAsText()" class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700/80 active:scale-[0.98] text-slate-700 dark:text-slate-200 font-medium text-xs border border-slate-300 dark:border-slate-700 transition focus:outline-none">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span data-i18n="btnCopyTsv">Copiar Texto (Tabulado)</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Rendered Table -->
+          <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-[#0d1321]">
+            <table id="previewTableDOM" class="w-full text-xs text-left border-collapse">
+              <tbody id="previewTableBody">
+                <!-- Dynamically populated via secure textContent routines -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Footer note -->
+          <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500">
+            <span data-i18n="tblCompat">Compatível com Excel, Jira e Remedy</span>
+            <span>NOC Standard</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2.5 bg-slate-900 dark:bg-slate-800 text-white px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 text-xs font-medium">
+    <div class="h-6 w-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    </div>
+    <span id="toastMessage">Tabela copiada com sucesso!</span>
+  </div>
+
+  <!-- Reset Confirmation Modal -->
+  <div id="resetModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#111827] rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 text-center animate-card-in">
+      <div class="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/40 flex items-center justify-center mx-auto mb-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+      </div>
+      <h4 class="text-base font-bold text-slate-900 dark:text-white" data-i18n="resetConfirmTitle">Limpar todo o formulário?</h4>
+      <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-5" data-i18n="resetConfirmDesc">Todos os campos preenchidos e paradas de tempo morto serão apagados.</p>
+      <div class="flex gap-2">
+        <button type="button" onclick="closeResetModal()" class="w-1/2 py-2.5 px-3 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition" data-i18n="btnCancel">Cancelar</button>
+        <button type="button" onclick="executeResetForm()" class="w-1/2 py-2.5 px-3 rounded-xl bg-rose-600 text-white text-xs font-semibold hover:bg-rose-700 shadow-md shadow-rose-600/20 transition" data-i18n="btnConfirm">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic & Scripts -->
+  <script>
+    /* -------------------------------------------------------------
+       1. I18N DICTIONARIES (PT-BR, ES, EN)
+       ------------------------------------------------------------- */
+    const I18N = {
+      'pt-BR': {
+        appTitle: "Cuadro de Cierre",
+        appSubtitle: "Cálculo e Normalização de Chamados",
+        btnReset: "Limpar",
+        kpiDescartesTitle: "Descartes Cliente",
+        kpiDescartesSubtitle: "Acionamento − Início",
+        kpiTotalFalhaTitle: "Tempo Total Falha",
+        kpiTotalFalhaSubtitle: "Fim − Acionamento",
+        kpiTempoMortoTitle: "Tempo Morto Total",
+        kpiImputavelTitle: "Imputável Empresa",
+        kpiImputavelSubtitle: "Total Falha − TM Total",
+        sec1Title: "Identificação dos Tickets",
+        labelMaster: "Ticket Master",
+        labelDiffToggle: "Ticket Secundário Diferente",
+        subDiffToggle: "Se desativado, espelha o código do Ticket Master.",
+        sec2Title: "Causa e Solução Técnica",
+        labelCausa: "Causa da Ocorrência",
+        selectCausaPrompt: "Selecione a classificação correspondente...",
+        labelSolucao: "Solução / Fechamento Técnico",
+        solucaoPlaceholder: "Descreva os testes executados, equipes acionadas e evidências de normalização...",
+        sec3Title: "Cronologia Operacional",
+        labelDtInicio: "Data / Hora Início",
+        labelDtAcionamento: "Data / Hora Acionamento",
+        labelDtFim: "Data / Hora Fim (Normalização)",
+        btnNow: "Agora",
+        sec4Title: "Pausas SLA (Tempo Morto)",
+        sec4Subtitle: "Se não houver paradas, todas as linhas serão omitidas da tabela final.",
+        btnAddTm: "Adicionar Parada",
+        tmEmptyTitle: "Nenhum tempo morto registrado",
+        tmEmptyDesc: "O chamado correu sem interrupções imputáveis a terceiros/cliente.",
+        previewTitle: "Pré-visualização da Tabela",
+        previewSubtitle: "Formatada e pronta para o chamado",
+        previewSync: "Sincronizado",
+        btnCopyExcel: "Copiar Tabela (Excel)",
+        btnCopyTsv: "Copiar Texto (Tabulado)",
+        tblCompat: "Compatível com Excel, Jira e Remedy",
+        resetConfirmTitle: "Limpar todo o formulário?",
+        resetConfirmDesc: "Todos os campos preenchidos e paradas de tempo morto serão apagados.",
+        btnCancel: "Cancelar",
+        btnConfirm: "Confirmar",
+        toastCopiedExcel: "Tabela copiada com sucesso para colar no Excel/Ticket!",
+        toastCopiedTsv: "Texto tabulado copiado com sucesso!",
+        toastFormReset: "Formulário limpo com sucesso.",
+        toastMaxTm: "Limite máximo de 8 tempos mortos atingido.",
+        dateErrFim: "A Data de Fim não pode ser anterior à Data de Acionamento.",
+        dateErrAcionamento: "A Data de Acionamento não pode ser anterior à Data de Início.",
+        dateErrTm: "A Data de Fim da parada não pode ser anterior ao Início.",
+        tmLabelTitle: "Parada de SLA",
+        tmLabelStart: "Início da Parada",
+        tmLabelEnd: "Fim da Parada",
+        tmLabelCause: "Causa da Parada",
+        tmCausePlaceholder: "Ex: Aguardando retorno/validação do cliente",
+        btnRemove: "Remover",
+        causas: [
+  "Link Down",
+  "Degradação",
+  "Latencia para destino",
+  "Falha de acesso a destino especifico",
+  "Consulta Administrativa",
+  "Tentativa de furto",
+  "Carga Alta",
+  "Descarga elétrica",
+  "Erro de Configuração",
+  "Falta de Energia",
+  "Rompimento de Fibra Óptica",
+  "Falha Massiva Terceiros",
+  "Cliente relata lentidão no circuito",
+  "Indisponibilidade de circuito",
+  "Perda de pacotes",
+  "Latência elevada",
+  "Oscilação de circuito (Flapping)",
+  "Interface Down",
+  "Congestionamento de tráfego",
+  "Atenuação",
+  "Atenuação elevada",
+  "Baixa potência óptica",
+  "Falha em cordão óptico",
+  "Falha em equipamento WDM",
+  "Falha em módulo óptico",
+  "Perda de sinal (LOS)",
+  "Falha de hardware",
+  "Falha de configuração",
+  "Falha em nobreak",
+  "Falha de concessionária de energia",
+  "Incêndio",
+  "Queimadas",
+  "Vandalismo",
+  "Falha em operadora parceira",
+  "Intervenção de terceiro",
+  "Problema na infraestrutura do cliente",
+  "Manutenção programada",
+  "Sem intervenção técnica",
+  "Outros"
+],
+        tableLabels: {
+          master: "Ticket Master",
+          sec: "Ticket Secundário",
+          causa: "Causa:",
+          solucao: "Solução:",
+          inicio: "Hora / Data de Inicio:",
+          acionamento: "Hora / Data de Acionamento:",
+          descartes: "Descartes cliente",
+          fim: "Hora / Data de Fim:",
+          totalFalha: "Tempo total de Falha:",
+          tmInicio: "Hora / Data TM Inicio:",
+          tmFim: "Hora / Data TM Fim:",
+          tmCausa: "Causa do tempo morto:",
+          tmTotal: "Tempo Morto:",
+          imputavel: "Tempo Imputavel a Empresa:"
+        }
+      },
+      'es': {
+        appTitle: "Cuadro de Cierre",
+        appSubtitle: "Cálculo y Normalización de Tickets",
+        btnReset: "Limpiar",
+        kpiDescartesTitle: "Descartes Cliente",
+        kpiDescartesSubtitle: "Activación − Inicio",
+        kpiTotalFalhaTitle: "Tiempo Total Falla",
+        kpiTotalFalhaSubtitle: "Fin − Activación",
+        kpiTempoMortoTitle: "Tiempo Muerto Total",
+        kpiImputavelTitle: "Imputable Empresa",
+        kpiImputavelSubtitle: "Total Falla − TM Total",
+        sec1Title: "Identificación de Tickets",
+        labelMaster: "Ticket Master",
+        labelDiffToggle: "Ticket Secundario Diferente",
+        subDiffToggle: "Si está desmarcado, replica el Ticket Master.",
+        sec2Title: "Causa y Solución Técnica",
+        labelCausa: "Causa del Incidente",
+        selectCausaPrompt: "Seleccione la clasificación correspondiente...",
+        labelSolucao: "Solución / Cierre Técnico",
+        solucaoPlaceholder: "Describa las pruebas realizadas, equipos coordinados y evidencia de normalización...",
+        sec3Title: "Cronología Operativa",
+        labelDtInicio: "Fecha / Hora Inicio",
+        labelDtAcionamento: "Fecha / Hora Activación",
+        labelDtFim: "Fecha / Hora Fin (Normalización)",
+        btnNow: "Ahora",
+        sec4Title: "Pausas de SLA (Tiempo Muerto)",
+        sec4Subtitle: "Si no hay pausas, todas las filas se omitirán de la tabla final.",
+        btnAddTm: "Agregar Pausa",
+        tmEmptyTitle: "Sin tiempo muerto registrado",
+        tmEmptyDesc: "El ticket avanzó sin interrupciones atribuibles al cliente o terceros.",
+        previewTitle: "Vista Previa de la Tabla",
+        previewSubtitle: "Formateada y lista para el ticket",
+        previewSync: "Sincronizado",
+        btnCopyExcel: "Copiar Tabla (Excel)",
+        btnCopyTsv: "Copiar Texto (Tabulado)",
+        tblCompat: "Compatible con Excel, Jira y Remedy",
+        resetConfirmTitle: "¿Limpiar todo el formulario?",
+        resetConfirmDesc: "Se borrarán todos los campos y pausas calculadas.",
+        btnCancel: "Cancelar",
+        btnConfirm: "Confirmar",
+        toastCopiedExcel: "¡Tabla copiada con éxito para pegar en Excel/Ticket!",
+        toastCopiedTsv: "¡Texto tabulado copiado con éxito!",
+        toastFormReset: "Formulario limpiado con éxito.",
+        toastMaxTm: "Límite máximo de 8 tiempos muertos alcanzado.",
+        dateErrFim: "La Fecha de Fin no puede ser anterior a la Activación.",
+        dateErrAcionamento: "La Fecha de Activación no puede ser anterior al Inicio.",
+        dateErrTm: "La Fecha de Fin de la pausa no puede ser anterior al Inicio.",
+        tmLabelTitle: "Pausa de SLA",
+        tmLabelStart: "Inicio de la Pausa",
+        tmLabelEnd: "Fin de la Pausa",
+        tmLabelCause: "Causa de la Pausa",
+        tmCausePlaceholder: "Ej: Esperando validación del cliente",
+        btnRemove: "Eliminar",
+        causas: [
+          "Link Down",
+          "Falla de acceso a destino específico",
+          "Consulta Administrativa",
+          "Intento de robo",
+          "Carga Alta",
+          "Descarga eléctrica",
+          "Error de Configuración",
+          "Falta de Energía",
+          "Corte de Fibra Óptica",
+          "Falla Masiva de Terceros",
+          "Cliente reporta lentitud en el circuito"
+        ],
+        tableLabels: {
+          master: "Ticket Master",
+          sec: "Ticket Secundario",
+          causa: "Causa:",
+          solucao: "Solución:",
+          inicio: "Hora / Fecha de Inicio:",
+          acionamento: "Hora / Fecha de Activación:",
+          descartes: "Descartes cliente",
+          fim: "Hora / Fecha de Fin:",
+          totalFalha: "Tiempo total de Falla:",
+          tmInicio: "Hora / Fecha TM Inicio:",
+          tmFim: "Hora / Fecha TM Fin:",
+          tmCausa: "Causa del tiempo muerto:",
+          tmTotal: "Tiempo Muerto:",
+          imputavel: "Tiempo Imputable a la Empresa:"
+        }
+      },
+      'en': {
+        appTitle: "Closure Table",
+        appSubtitle: "NOC Ticket Outage Calculator",
+        btnReset: "Reset",
+        kpiDescartesTitle: "Client Deductions",
+        kpiDescartesSubtitle: "Dispatch − Open",
+        kpiTotalFalhaTitle: "Total Outage Time",
+        kpiTotalFalhaSubtitle: "End − Dispatch",
+        kpiTempoMortoTitle: "Total Dead Time",
+        kpiImputavelTitle: "Company Imputable",
+        kpiImputavelSubtitle: "Total Outage − Dead Time",
+        sec1Title: "Ticket Identification",
+        labelMaster: "Master Ticket",
+        labelDiffToggle: "Different Secondary Ticket",
+        subDiffToggle: "If disabled, mirrors the Master Ticket code.",
+        sec2Title: "Cause & Technical Solution",
+        labelCausa: "Incident Cause",
+        selectCausaPrompt: "Select corresponding classification...",
+        labelSolucao: "Solution / Technical Closure",
+        solucaoPlaceholder: "Describe troubleshooting steps, dispatched field crews, and traffic recovery evidence...",
+        sec3Title: "Operational Chronology",
+        labelDtInicio: "Start Date / Time",
+        labelDtAcionamento: "Dispatch Date / Time",
+        labelDtFim: "End Date / Time (Normalized)",
+        btnNow: "Now",
+        sec4Title: "SLA Pauses (Dead Time)",
+        sec4Subtitle: "If no pauses exist, all pause lines will be completely omitted from the copied table.",
+        btnAddTm: "Add SLA Pause",
+        tmEmptyTitle: "No dead time recorded",
+        tmEmptyDesc: "The ticket progressed without external or client-side hold times.",
+        previewTitle: "Table Live Preview",
+        previewSubtitle: "Ready to paste into ticket notes",
+        previewSync: "Synchronized",
+        btnCopyExcel: "Copy Table (Excel)",
+        btnCopyTsv: "Copy Plain Text (TSV)",
+        tblCompat: "Compatible with Excel, Jira, and Remedy",
+        resetConfirmTitle: "Clear entire form?",
+        resetConfirmDesc: "All inputs and calculated SLA pauses will be reset.",
+        btnCancel: "Cancel",
+        btnConfirm: "Confirm",
+        toastCopiedExcel: "Structured table copied to clipboard!",
+        toastCopiedTsv: "Tab-separated text copied to clipboard!",
+        toastFormReset: "Form reset successfully.",
+        toastMaxTm: "Maximum limit of 8 dead times reached.",
+        dateErrFim: "End date cannot be prior to Dispatch date.",
+        dateErrAcionamento: "Dispatch date cannot be prior to Start date.",
+        dateErrTm: "Pause End date cannot be prior to Pause Start.",
+        tmLabelTitle: "SLA Pause",
+        tmLabelStart: "Pause Start",
+        tmLabelEnd: "Pause End",
+        tmLabelCause: "Pause Cause",
+        tmCausePlaceholder: "e.g. Awaiting client validation/power restoration",
+        btnRemove: "Remove",
+        causas: [
+          "Link Down",
+          "Specific destination unreachable",
+          "Administrative Query",
+          "Theft attempt",
+          "High Utilization",
+          "Power surge / lightning",
+          "Configuration Error",
+          "Power Outage",
+          "Fiber Optic Cut",
+          "Third-Party Massive Outage",
+          "Customer reports circuit latency"
+        ],
+        tableLabels: {
+          master: "Master Ticket",
+          sec: "Secondary Ticket",
+          causa: "Cause:",
+          solucao: "Solution:",
+          inicio: "Start Date / Time:",
+          acionamento: "Dispatch Date / Time:",
+          descartes: "Client Deductions",
+          fim: "End Date / Time:",
+          totalFalha: "Total Outage Time:",
+          tmInicio: "Dead Time Start:",
+          tmFim: "Dead Time End:",
+          tmCausa: "Dead Time Cause:",
+          tmTotal: "Total Dead Time:",
+          imputavel: "Company Imputable Time:"
+        }
+      }
+    };
+
+    /* Global Runtime State */
+    let currentLang = 'pt-BR';
+    let tempoMortoList = [];
+    let nextTmId = 1;
+
+    /* -------------------------------------------------------------
+       2. THEME CONTROLLER (Dark mode by default + localStorage)
+       ------------------------------------------------------------- */
+    function initializeTheme() {
+      const savedTheme = localStorage.getItem('noc_theme');
+      // If user specifically saved 'light', use light; otherwise DEFAULT TO DARK
+      if (savedTheme === 'light') {
+        document.documentElement.classList.remove('dark');
+        updateThemeIcons(false);
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('noc_theme', 'dark');
+        updateThemeIcons(true);
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('noc_theme', isDark ? 'dark' : 'light');
+      updateThemeIcons(isDark);
+    }
+
+    function updateThemeIcons(isDark) {
+      const sun = document.getElementById('iconSun');
+      const moon = document.getElementById('iconMoon');
+      if (isDark) {
+        sun.classList.remove('hidden');
+        moon.classList.add('hidden');
+      } else {
+        sun.classList.add('hidden');
+        moon.classList.remove('hidden');
+      }
+    }
+
+    /* -------------------------------------------------------------
+       3. LANGUAGE CONTROLLER (Instant hot-swap)
+       ------------------------------------------------------------- */
+    function changeLanguage(langKey) {
+      if (!I18N[langKey]) return;
+      currentLang = langKey;
+      localStorage.setItem('noc_lang', langKey);
+      applyTranslations();
+      recalculate();
+    }
+
+    function applyTranslations() {
+      const dict = I18N[currentLang];
+      
+      // Update data-i18n text nodes
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.textContent = dict[key];
+        }
+      });
+
+      // Update placeholders
+      const solucaoInput = document.getElementById('solucao');
+      if (solucaoInput && dict.solucaoPlaceholder) {
+        solucaoInput.placeholder = dict.solucaoPlaceholder;
+      }
+
+      // Update Causa dropdown while preserving selected value index
+      const causaSelect = document.getElementById('causa');
+      const prevSelectedIndex = causaSelect.selectedIndex;
+      causaSelect.innerHTML = '';
+      
+      const defaultOpt = document.createElement('option');
+      defaultOpt.value = '';
+      defaultOpt.textContent = dict.selectCausaPrompt;
+      causaSelect.appendChild(defaultOpt);
+
+      dict.causas.forEach((c) => {
+        const opt = document.createElement('option');
+        opt.value = c;
+        opt.textContent = c;
+        causaSelect.appendChild(opt);
+      });
+
+      if (prevSelectedIndex > 0 && prevSelectedIndex < causaSelect.options.length) {
+        causaSelect.selectedIndex = prevSelectedIndex;
+      }
+
+      // Re-render TM block headers & labels
+      renderTempoMortoDOM();
+    }
+
+    /* -------------------------------------------------------------
+       4. TELECOM DURATION & CALCULATION ENGINE
+       ------------------------------------------------------------- */
+    /* Formats milliseconds into exact Excel [hh]:mm:ss pattern, allowing hours >= 24 */
+    function formatDuration(ms) {
+      if (isNaN(ms) || ms <= 0) return '00:00:00';
+      const totalSeconds = Math.floor(ms / 1000);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      const pad = (n) => String(n).padStart(2, '0');
+      return `${hours < 10 ? '0' + hours : hours}:${pad(minutes)}:${pad(seconds)}`;
+    }
+
+    /* Standardizes date objects to YYYY-MM-DD HH:mm:00 */
+    function formatDisplayDate(val) {
+      if (!val) return '-';
+      const d = new Date(val);
+      if (isNaN(d.getTime())) return '-';
+      const pad = (n) => String(n).padStart(2, '0');
+      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:00`;
+    }
+
+    /* Sets current timestamp into inputs */
+    function setNow(inputId) {
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const localISO = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+      const input = document.getElementById(inputId);
+      if (input) {
+        input.value = localISO;
+        recalculate();
+      }
+    }
+
+    /* Toggle secondary ticket custom input */
+    function handleDiffTicketToggle() {
+      const isChecked = document.getElementById('diffTicketToggle').checked;
+      const container = document.getElementById('secundarioContainer');
+      const secInput = document.getElementById('ticketSec');
+      const masterVal = document.getElementById('ticketMaster').value;
+
+      if (isChecked) {
+        container.classList.remove('hidden');
+        if (!secInput.value) secInput.value = masterVal;
+        secInput.focus();
+      } else {
+        container.classList.add('hidden');
+        secInput.value = '';
+      }
+      recalculate();
+    }
+  </script>
+
+  <script>
+    /* -------------------------------------------------------------
+       5. SLA PAUSES / TEMPO MORTO HANDLERS
+       ------------------------------------------------------------- */
+    function addTempoMortoBlock() {
+      const dict = I18N[currentLang];
+      if (tempoMortoList.length >= 8) {
+        showToast(dict.toastMaxTm);
+        return;
+      }
+
+      tempoMortoList.push({
+        id: nextTmId++,
+        inicio: '',
+        fim: '',
+        causa: ''
+      });
+
+      renderTempoMortoDOM();
+      recalculate();
+    }
+
+    function removeTempoMorto(id) {
+      tempoMortoList = tempoMortoList.filter(tm => tm.id !== id);
+      renderTempoMortoDOM();
+      recalculate();
+    }
+
+    function updateTMField(id, field, value) {
+      const target = tempoMortoList.find(tm => tm.id === id);
+      if (target) {
+        target[field] = value;
+      }
+      recalculate();
+    }
+
+    function renderTempoMortoDOM() {
+      const dict = I18N[currentLang];
+      const container = document.getElementById('tmContainer');
+      const emptyState = document.getElementById('tmEmptyState');
+      const countLabel = document.getElementById('statTmCountLabel');
+
+      container.innerHTML = '';
+
+      if (tempoMortoList.length === 0) {
+        emptyState.classList.remove('hidden');
+        countLabel.textContent = currentLang === 'en' ? '0 pauses applied' : (currentLang === 'es' ? '0 pausas aplicadas' : '0 paradas aplicadas');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      const countText = tempoMortoList.length === 1 
+        ? (currentLang === 'en' ? '1 pause applied' : (currentLang === 'es' ? '1 pausa aplicada' : '1 parada aplicada'))
+        : (currentLang === 'en' ? `${tempoMortoList.length} pauses applied` : (currentLang === 'es' ? `${tempoMortoList.length} pausas aplicadas` : `${tempoMortoList.length} paradas aplicadas`));
+      countLabel.textContent = countText;
+
+      tempoMortoList.forEach((tm, index) => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'p-3.5 bg-slate-50 dark:bg-[#0d1321] border border-slate-200 dark:border-slate-800 rounded-xl space-y-3 animate-card-in';
+        
+        // Item Header
+        const header = document.createElement('div');
+        header.className = 'flex items-center justify-between';
+        header.innerHTML = `
+          <div class="flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <span class="w-5 h-5 rounded bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 flex items-center justify-center text-[10px]">${index + 1}</span>
+            <span>${dict.tmLabelTitle}</span>
+          </div>
+          <button type="button" onclick="removeTempoMorto(${tm.id})" class="text-rose-600 dark:text-rose-400 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/40 px-2 py-1 rounded-lg text-xs font-medium transition flex items-center gap-1 focus:outline-none">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            ${dict.btnRemove}
+          </button>
+        `;
+        itemDiv.appendChild(header);
+
+        // Inputs Grid
+        const grid = document.createElement('div');
+        grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs';
+        
+        // TM Start
+        const divStart = document.createElement('div');
+        divStart.innerHTML = `<label class="block font-medium text-slate-600 dark:text-slate-400 mb-1">${dict.tmLabelStart}</label>`;
+        const inputStart = document.createElement('input');
+        inputStart.type = 'datetime-local';
+        inputStart.className = 'w-full px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#111827] font-mono text-slate-800 dark:text-slate-100 text-xs focus:border-brand-500 focus:outline-none';
+        inputStart.value = tm.inicio;
+        inputStart.oninput = (e) => updateTMField(tm.id, 'inicio', e.target.value);
+        divStart.appendChild(inputStart);
+
+        // TM End
+        const divEnd = document.createElement('div');
+        divEnd.innerHTML = `<label class="block font-medium text-slate-600 dark:text-slate-400 mb-1">${dict.tmLabelEnd}</label>`;
+        const inputEnd = document.createElement('input');
+        inputEnd.type = 'datetime-local';
+        inputEnd.className = 'w-full px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#111827] font-mono text-slate-800 dark:text-slate-100 text-xs focus:border-brand-500 focus:outline-none';
+        inputEnd.value = tm.fim;
+        inputEnd.oninput = (e) => updateTMField(tm.id, 'fim', e.target.value);
+        divEnd.appendChild(inputEnd);
+
+        grid.appendChild(divStart);
+        grid.appendChild(divEnd);
+
+        // TM Cause
+        const divCause = document.createElement('div');
+        divCause.className = 'sm:col-span-2';
+        divCause.innerHTML = `<label class="block font-medium text-slate-600 dark:text-slate-400 mb-1">${dict.tmLabelCause}</label>`;
+        const inputCause = document.createElement('input');
+        inputCause.type = 'text';
+        inputCause.maxLength = 140;
+        inputCause.placeholder = dict.tmCausePlaceholder;
+        inputCause.className = 'w-full px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#111827] text-slate-800 dark:text-slate-100 text-xs focus:border-brand-500 focus:outline-none';
+        inputCause.value = tm.causa;
+        inputCause.oninput = (e) => updateTMField(tm.id, 'causa', e.target.value);
+        divCause.appendChild(inputCause);
+
+        grid.appendChild(divCause);
+        itemDiv.appendChild(grid);
+        container.appendChild(itemDiv);
+      });
+    }
+
+    /* -------------------------------------------------------------
+       6. CORE RECALCULATE ENGINE & PREVIEW SYNC
+       ------------------------------------------------------------- */
+    function recalculate() {
+      const dict = I18N[currentLang];
+      const dtInicioRaw = document.getElementById('dtInicio').value;
+      const dtAcionamentoRaw = document.getElementById('dtAcionamento').value;
+      const dtFimRaw = document.getElementById('dtFim').value;
+
+      const dInicio = new Date(dtInicioRaw);
+      const dAcionamento = new Date(dtAcionamentoRaw);
+      const dFim = new Date(dtFimRaw);
+
+      let hasDateLogicError = false;
+      let errorMsg = '';
+
+      // 1. Descartes Cliente = Acionamento - Início
+      let msDescartes = 0;
+      if (!isNaN(dInicio.getTime()) && !isNaN(dAcionamento.getTime())) {
+        if (dAcionamento < dInicio) {
+          hasDateLogicError = true;
+          errorMsg = dict.dateErrAcionamento;
+        } else {
+          msDescartes = dAcionamento - dInicio;
+        }
+      }
+
+      // 2. Tempo Total Falha = Fim - Acionamento
+      let msTotalFalha = 0;
+      if (!isNaN(dAcionamento.getTime()) && !isNaN(dFim.getTime())) {
+        if (dFim < dAcionamento) {
+          hasDateLogicError = true;
+          errorMsg = dict.dateErrFim;
+        } else {
+          msTotalFalha = dFim - dAcionamento;
+        }
+      }
+
+      // 3. Tempo Morto Total = Soma de todas as paradas (Fim TM - Início TM)
+      let msTempoMortoTotal = 0;
+      const validTMRows = [];
+
+      tempoMortoList.forEach((tm) => {
+        const s = new Date(tm.inicio);
+        const e = new Date(tm.fim);
+        if (!isNaN(s.getTime()) && !isNaN(e.getTime())) {
+          if (e >= s) {
+            msTempoMortoTotal += (e - s);
+          } else {
+            hasDateLogicError = true;
+            errorMsg = dict.dateErrTm;
+          }
+        }
+        if (tm.inicio || tm.fim || tm.causa) {
+          validTMRows.push({
+            inicio: formatDisplayDate(tm.inicio),
+            fim: formatDisplayDate(tm.fim),
+            causa: tm.causa.trim() || '-'
+          });
+        }
+      });
+
+      // 4. Tempo Imputável à Empresa = max(0, Total Falha - TM Total)
+      const msImputavel = Math.max(0, msTotalFalha - msTempoMortoTotal);
+
+      // Validation alert management
+      const alertBox = document.getElementById('dateAlertBox');
+      const alertText = document.getElementById('dateAlertText');
+      if (hasDateLogicError) {
+        alertText.textContent = errorMsg;
+        alertBox.classList.remove('hidden');
+      } else {
+        alertBox.classList.add('hidden');
+      }
+
+      // Update KPI Cards
+      document.getElementById('statDescartes').textContent = formatDuration(msDescartes);
+      document.getElementById('statTotalFalha').textContent = formatDuration(msTotalFalha);
+      document.getElementById('statTempoMorto').textContent = formatDuration(msTempoMortoTotal);
+      document.getElementById('statImputavel').textContent = formatDuration(msImputavel);
+
+      // Read form strings safely
+      const masterVal = document.getElementById('ticketMaster').value.trim() || '-';
+      const isDiff = document.getElementById('diffTicketToggle').checked;
+      const secVal = isDiff ? (document.getElementById('ticketSec').value.trim() || masterVal) : masterVal;
+      const causaVal = document.getElementById('causa').value.trim() || '-';
+      const solucaoVal = document.getElementById('solucao').value.trim() || '-';
+
+      // Update Character counter & progress
+      const solucaoLen = document.getElementById('solucao').value.length;
+      document.getElementById('charCountBadge').textContent = `${solucaoLen} / 500`;
+      const progressPercent = Math.min(100, (solucaoLen / 500) * 100);
+      document.getElementById('charProgressBar').style.width = `${progressPercent}%`;
+
+      // Render Synchronized Table DOM
+      syncPreviewTableDOM({
+        master: masterVal,
+        secundario: secVal,
+        causa: causaVal,
+        solucao: solucaoVal,
+        dtInicio: formatDisplayDate(dtInicioRaw),
+        dtAcionamento: formatDisplayDate(dtAcionamentoRaw),
+        descartes: formatDuration(msDescartes),
+        dtFim: formatDisplayDate(dtFimRaw),
+        totalFalha: formatDuration(msTotalFalha),
+        tmRows: validTMRows,
+        tmTotal: formatDuration(msTempoMortoTotal),
+        imputavel: formatDuration(msImputavel)
+      });
+    }
+
+    /* -------------------------------------------------------------
+       7. SECURE TABLE DOM RENDER (Conditional SLA Row Omission)
+       ------------------------------------------------------------- */
+    function syncPreviewTableDOM(data) {
+      const tbody = document.getElementById('previewTableBody');
+      const dict = I18N[currentLang];
+      const lbl = dict.tableLabels;
+      tbody.innerHTML = '';
+
+      const appendRow = (label, val, highlight = false) => {
+        const tr = document.createElement('tr');
+        tr.className = 'border-b border-slate-200 dark:border-slate-800/80 hover:bg-slate-100/60 dark:hover:bg-slate-800/40 transition-colors';
+
+        const th = document.createElement('th');
+        th.className = 'py-2 px-3 text-slate-600 dark:text-slate-400 font-semibold text-[11px] bg-slate-100/70 dark:bg-slate-800/60 w-[42%] align-top';
+        th.textContent = label;
+
+        const td = document.createElement('td');
+        td.className = `py-2 px-3 text-[11px] font-mono break-words ${highlight ? 'font-bold text-brand-700 dark:text-cyan-400 bg-brand-50/50 dark:bg-brand-950/40' : 'text-slate-800 dark:text-slate-200'}`;
+        td.textContent = val;
+
+        tr.appendChild(th);
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+      };
+
+      // Base operational rows
+      appendRow(lbl.master, data.master);
+      appendRow(lbl.sec, data.secundario);
+      appendRow(lbl.causa, data.causa);
+      appendRow(lbl.solucao, data.solucao);
+      appendRow(lbl.inicio, data.dtInicio);
+      appendRow(lbl.acionamento, data.dtAcionamento);
+      appendRow(lbl.descartes, data.descartes);
+      appendRow(lbl.fim, data.dtFim);
+      appendRow(lbl.totalFalha, data.totalFalha);
+
+      // CONDITIONAL SLA OMISSION RULE:
+      // If no valid dead time rows were added, ALL SLA rows are omitted completely!
+      if (data.tmRows && data.tmRows.length > 0) {
+        data.tmRows.forEach((tm) => {
+          appendRow(lbl.tmInicio, tm.inicio);
+          appendRow(lbl.tmFim, tm.fim);
+          appendRow(lbl.tmCausa, tm.causa);
+        });
+        appendRow(lbl.tmTotal, data.tmTotal);
+      }
+
+      appendRow(lbl.imputavel, data.imputavel, true);
+    }
+  </script>
+
+  <script>
+    /* -------------------------------------------------------------
+       8. CLIPBOARD EXPORT ENGINES (EXCEL HTML & TSV)
+       ------------------------------------------------------------- */
+    function getCleanExcelHTML() {
+      const rows = document.querySelectorAll('#previewTableBody tr');
+      let html = `<table style="border-collapse:collapse; font-family:Arial, sans-serif; font-size:11px;"><tbody>`;
+      rows.forEach(tr => {
+        const th = tr.querySelector('th') ? tr.querySelector('th').textContent.trim() : '';
+        const td = tr.querySelector('td') ? tr.querySelector('td').textContent.trim() : '';
+        const isHighlight = tr.querySelector('td') && tr.querySelector('td').classList.contains('font-bold');
+        const bgTh = '#f1f5f9';
+        const bgTd = isHighlight ? '#e0f2fe' : '#ffffff';
+        const fontTd = isHighlight ? 'font-weight:bold; color:#0369a1;' : 'color:#1e293b;';
+        
+        html += `<tr>
+          <th style="border:1px solid #cbd5e1; background-color:${bgTh}; padding:6px 10px; text-align:left; color:#334155; font-weight:600;">${th}</th>
+          <td style="border:1px solid #cbd5e1; background-color:${bgTd}; padding:6px 10px; text-align:left; ${fontTd}">${td}</td>
+        </tr>`;
+      });
+      html += `</tbody></table>`;
+      return html;
+    }
+
+    function getTableAsTSV() {
+      const rows = document.querySelectorAll('#previewTableBody tr');
+      const lines = [];
+      rows.forEach(tr => {
+        const th = tr.querySelector('th') ? tr.querySelector('th').textContent.trim() : '';
+        const td = tr.querySelector('td') ? tr.querySelector('td').textContent.trim() : '';
+        lines.push(`${th}\t${td}`);
+      });
+      return lines.join('\n');
+    }
+
+    /* Copy Table in Rich HTML format (Ready to paste directly into Excel & Tickets) */
+    async function copyTableAsHTML() {
+      const dict = I18N[currentLang];
+      const tableHTML = getCleanExcelHTML();
+      const plainText = getTableAsTSV();
+
+      if (navigator.clipboard && window.ClipboardItem) {
+        try {
+          const blobHTML = new Blob([tableHTML], { type: 'text/html' });
+          const blobText = new Blob([plainText], { type: 'text/plain' });
+          const item = new ClipboardItem({
+            'text/html': blobHTML,
+            'text/plain': blobText
+          });
+          await navigator.clipboard.write([item]);
+          showToast(dict.toastCopiedExcel);
+          return;
+        } catch (err) {
+          console.warn('ClipboardItem failed, triggering fallback:', err);
+        }
+      }
+
+      // Fallback selection copy
+      try {
+        const table = document.getElementById('previewTableDOM');
+        const range = document.createRange();
+        range.selectNode(table);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+        showToast(dict.toastCopiedExcel);
+      } catch (e) {
+        fallbackCopyText(plainText, dict.toastCopiedExcel);
+      }
+    }
+
+    /* Copy Table in Tab-Separated Values (TSV) Plain Text */
+    async function copyTableAsText() {
+      const dict = I18N[currentLang];
+      const plainText = getTableAsTSV();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(plainText);
+          showToast(dict.toastCopiedTsv);
+          return;
+        } catch (e) {}
+      }
+      fallbackCopyText(plainText, dict.toastCopiedTsv);
+    }
+
+    function fallbackCopyText(text, successMessage) {
+      const tempArea = document.createElement('textarea');
+      tempArea.value = text;
+      tempArea.style.position = 'fixed';
+      tempArea.style.opacity = '0';
+      document.body.appendChild(tempArea);
+      tempArea.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMessage);
+      } catch (err) {
+        showToast('Erro ao copiar.');
+      }
+      document.body.removeChild(tempArea);
+    }
+
+    /* Floating Toast Animation */
+    function showToast(message) {
+      const toast = document.getElementById('toastNotification');
+      const msg = document.getElementById('toastMessage');
+      msg.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 2800);
+    }
+
+    /* -------------------------------------------------------------
+       9. FORM RESET & SECURITY PROTOCOLS
+       ------------------------------------------------------------- */
+    function confirmReset() {
+      const modal = document.getElementById('resetModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeResetModal() {
+      const modal = document.getElementById('resetModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function executeResetForm() {
+      document.getElementById('cuadroForm').reset();
+      tempoMortoList = [];
+      document.getElementById('diffTicketToggle').checked = false;
+      document.getElementById('secundarioContainer').classList.add('hidden');
+      renderTempoMortoDOM();
+      recalculate();
+      closeResetModal();
+      showToast(I18N[currentLang].toastFormReset);
+    }
+
+    /* Accidental tab closing protection */
+    window.addEventListener('beforeunload', (e) => {
+      const master = document.getElementById('ticketMaster').value;
+      const solucao = document.getElementById('solucao').value;
+      if (master || solucao || tempoMortoList.length > 0) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    });
+
+    /* -------------------------------------------------------------
+       10. APPLICATION INITIALIZATION
+       ------------------------------------------------------------- */
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Initialize Theme (Default to Dark)
+      initializeTheme();
+
+      // 2. Initialize Language (Saved or Default PT-BR)
+      const savedLang = localStorage.getItem('noc_lang') || 'pt-BR';
+      const langSelect = document.getElementById('langSelect');
+      if (langSelect && I18N[savedLang]) {
+        langSelect.value = savedLang;
+        currentLang = savedLang;
+      }
+      applyTranslations();
+
+      // 3. Delegate listeners for immediate auto-calculation
+      const inputs = document.querySelectorAll('#cuadroForm input, #cuadroForm select, #cuadroForm textarea');
+      inputs.forEach(el => el.addEventListener('input', recalculate));
+
+      // 4. Initial calculation pass
+      recalculate();
+    });
+  </script>
+</body>
+</html>
