@@ -1,44 +1,202 @@
 
-causas: [
-  "Link Down",
-  "Degradação",
-  "Latência para destino",
-  "Falha de acesso a destino específico",
-  "Consulta Administrativa",
-  "Tentativa de furto",
-  "Carga Alta",
-  "Descarga elétrica",
-  "Erro de Configuração",
-  "Falta de Energia",
-  "Rompimento de Fibra Óptica",
-  "Falha Massiva Terceiros",
-  "Cliente relata lentidão no circuito",
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuadro de Cierre | NOC Operations Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  // Novas classificações
-  "Indisponibilidade de circuito",
-  "Perda de pacotes",
-  "Latência elevada",
-  "Oscilação de circuito (Flapping)",
-  "Interface Down",
-  "Congestionamento de tráfego",
-  "Atenuação",
-  "Atenuação elevada",
-  "Baixa potência óptica",
-  "Falha em cordão óptico",
-  "Falha em equipamento WDM",
-  "Falha em módulo óptico",
-  "Perda de sinal (LOS)",
-  "Falha de hardware",
-  "Falha de configuração",
-  "Falha em nobreak",
-  "Falha de concessionária de energia",
-  "Incêndio",
-  "Queimadas",
-  "Vandalismo",
-  "Falha em operadora parceira",
-  "Intervenção de terceiro",
-  "Problema na infraestrutura do cliente",
-  "Manutenção programada",
-  "Sem intervenção técnica",
-  "Outros"
-],
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            },
+            noc: {
+              dark: '#0b0f19',
+              card: '#111827',
+              border: '#1f293d',
+              input: '#0d1321'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes slideUpFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-card-in {
+      animation: slideUpFade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+
+    .dark input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+      opacity: 0.7;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-100 dark:bg-[#0b0f19] text-slate-800 dark:text-slate-100 antialiased min-h-screen selection:bg-brand-500 selection:text-white transition-colors duration-200 pb-16">
+
+  <!-- Top Navigation Header -->
+  <nav class="sticky top-0 z-40 bg-white/90 dark:bg-[#111827]/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+
+      <!-- Brand & Title -->
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-brand-700 via-brand-600 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-brand-600/25 shrink-0">
+
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        </div>
+
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-base sm:text-lg text-slate-900 dark:text-white tracking-tight leading-none" data-i18n="appTitle">Cuadro de Cierre</h1>
+
+            <span class="text-[10px] font-bold bg-brand-100 dark:bg-brand-950/80 text-brand-700 dark:text-brand-400 border border-brand-200 dark:border-brand-800/60 px-2 py-0.5 rounded-full uppercase tracking-wider">NOC Hub</span>
+          </div>
+
+          <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="appSubtitle">Cálculo e Normalização de Chamados</p>
+        </div>
+      </div>
+
+      <!-- Action Controls -->
+      <div class="flex items-center gap-2 sm:gap-3">
+
+        <!-- Language Switcher -->
+        <div class="relative">
+          <select id="langSelect" onchange="changeLanguage(this.value)" class="appearance-none bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 text-xs font-semibold pl-2.5 pr-7 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 cursor-pointer transition">
+            <option value="pt-BR">🇧🇷 PT-BR</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="en">🇺🇸 English</option>
+          </select>
+
+          <div class="pointer-events-none absolute right-2 top-2.5 text-slate-400">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Dark/Light Mode Toggle Button -->
+        <button type="button" id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-amber-400 border border-slate-300 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700/80 transition focus:outline-none focus:ring-2 focus:ring-brand-500/30" title="Alternar Tema (Dark/Light)">
+
+          <svg id="iconMoon" class="w-4 h-4 hidden dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+
+          <svg id="iconSun" class="w-4 h-4 block dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+        </button>
+
+        <!-- Clean Form Button -->
+        <button type="button" onclick="confirmReset()" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-rose-600 dark:hover:text-rose-400 bg-slate-100 dark:bg-slate-800/90 hover:bg-rose-50 dark:hover:bg-rose-950/40 px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-rose-300 dark:hover:border-rose-900 transition flex items-center gap-1.5 focus:outline-none">
+
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+
+          <span class="hidden sm:inline" data-i18n="btnReset">Limpar</span>
+        </button>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Workspace -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 space-y-6">
+
+    <!-- KPI Analytics Cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+
+      <!-- Descartes Cliente -->
+      <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition">
+
+        <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-medium mb-1">
+          <span data-i18n="kpiDescartesTitle">Descartes Cliente</span>
+        </div>
+
+        <div class="font-mono text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100" id="statDescartes">00:00:00</div>
+        <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-1" data-i18n="kpiDescartesSubtitle">Acionamento − Início</p>
+      </div>
+
+      <!-- Tempo Total Falha -->
+      <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:border-amber-300 dark:hover:border-amber-900/40 transition">
+
+        <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-medium mb-1">
+          <span data-i18n="kpiTotalFalhaTitle">Tempo Total Falha</span>
+        </div>
+
+        <div class="font-mono text-xl sm:text-2xl font-bold tracking-tight text-amber-600 dark:text-amber-400" id="statTotalFalha">00:00:00</div>
+        <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-1" data-i18n="kpiTotalFalhaSubtitle">Fim − Acionamento</p>
+      </div>
+
+      <!-- Tempo Morto Total -->
+      <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:border-indigo-300 dark:hover:border-indigo-900/40 transition">
+
+        <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-medium mb-1">
+          <span data-i18n="kpiTempoMortoTitle">Tempo Morto Total</span>
+        </div>
+
+        <div class="font-mono text-xl sm:text-2xl font-bold tracking-tight text-indigo-600 dark:text-indigo-400" id="statTempoMorto">00:00:00</div>
+        <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-1" id="statTmCountLabel">0 paradas aplicadas</p>
+      </div>
+
+      <!-- Tempo Imputável à Empresa -->
+      <div class="bg-gradient-to-br from-brand-700 to-brand-900 dark:from-brand-900 dark:to-[#072d42] border border-brand-600/40 dark:border-brand-700/50 rounded-2xl p-4 text-white shadow-lg shadow-brand-950/20">
+
+        <div class="flex items-center justify-between text-brand-100 text-xs font-medium mb-1">
+          <span data-i18n="kpiImputavelTitle">Imputável Empresa</span>
+        </div>
+
+        <div class="font-mono text-xl sm:text-2xl font-bold tracking-tight text-white" id="statImputavel">00:00:00</div>
+        <p class="text-[11px] text-brand-200/90 mt-1" data-i18n="kpiImputavelSubtitle">Total Falha − TM Total</p>
+      </div>
+
+    </div>
